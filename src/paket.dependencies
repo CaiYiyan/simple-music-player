@@ -9,7 +9,7 @@ nuget MahApps.Metro prerelease
 nuget MahApps.Metro.IconPacks
 nuget MahApps.Metro.SimpleChildWindow prerelease
 nuget MaterialDesignThemes prerelease
-nuget Newtonsoft.Json
+nuget Jil
 nuget NLog < 5
 nuget QuickIO.NET
 nuget reactiveui < 8

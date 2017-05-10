@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Newtonsoft.Json;
+using Jil;
 using ReactiveUI;
 using SchwabenCode.QuickIO;
 using SimpleMusicPlayer.Core.Interfaces;
@@ -17,6 +17,10 @@ namespace SimpleMusicPlayer.Core
     public class MediaFile : ReactiveObject, IMediaFile
     {
         private const string UNKNOWN_STRING = "<Unknown>";
+
+        public MediaFile()
+        {
+        }
 
         public MediaFile(string fileName)
         {
@@ -169,99 +173,99 @@ namespace SimpleMusicPlayer.Core
             return mediaFile;
         }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public string FirstPerformerSort { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public string FirstPerformer { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public string FirstGenre { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public string FirstComposerSort { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public string FirstComposer { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public string FirstAlbumArtistSort { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public string FirstAlbumArtist { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public string FirstPerformerAndTitle { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public string FirstPerformerAndAlbum { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public TimeSpan Duration { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public bool IsVBR { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public int AudioBitrate { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public int AudioSampleRate { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public uint DiscCount { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public uint Disc { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public uint TrackCount { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public uint Track { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public string TrackInfo { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public uint Year { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public uint BPM { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public string Copyright { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public string Comment { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public string AlbumSort { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public string Album { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public string Conductor { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public string TitleSort { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public string Title { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public string Grouping { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public string FullFileName { get; private set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
+        [JilDirective]
         public string FileName { get; private set; }
 
         private PlayerState state;
         [Browsable(false)]
-        [JsonIgnore]
+        [JilDirective(true)]
         public PlayerState State
         {
             get { return this.state; }
@@ -339,7 +343,7 @@ namespace SimpleMusicPlayer.Core
         }
 
         [Browsable(false)]
-        [JsonIgnore]
+        [JilDirective(true)]
         public BitmapImage Cover
         {
             get
@@ -357,7 +361,7 @@ namespace SimpleMusicPlayer.Core
 
         private int playListIndex;
         [Browsable(false)]
-        [JsonIgnore]
+        [JilDirective(true)]
         public int PlayListIndex
         {
             get { return this.playListIndex; }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+using Jil;
 using SchwabenCode.QuickIO;
 using Splat;
 using TinyIoC;
@@ -11,7 +11,7 @@ namespace SimpleMusicPlayer.Core
 {
     public class PlayList
     {
-        [JsonIgnore]
+        [JilDirective(true)]
         public const string PlayListFileName = "playlist.smppl";
 
         public List<MediaFile> Files { get; set; }
@@ -26,10 +26,11 @@ namespace SimpleMusicPlayer.Core
                     return null;
                 }
                 LogHost.Default.Info("try loading play list from {0}", fileName);
-                using (StreamReader file = await Task.Run(() => QuickIOFile.OpenText(fileName)))
+                using (StreamReader file = await Task.Run(() => QuickIOFile.OpenText(fileName)).ConfigureAwait(false))
                 {
-                    var serializer = new JsonSerializer();
-                    return (PlayList)serializer.Deserialize(file, typeof(PlayList));
+                    return JSON.Deserialize<PlayList>(file);
+//                    var serializer = new JsonSerializer();
+//                    return (PlayList)serializer.Deserialize(file, typeof(PlayList));
                 }
             }
             catch (Exception ex)
@@ -48,8 +49,9 @@ namespace SimpleMusicPlayer.Core
                 using (StreamWriter file = QuickIOFile.CreateText(fileName))
                 {
                     file.AutoFlush = true;
-                    var serializer = new JsonSerializer();
-                    serializer.Serialize(file, playList);
+                    JSON.Serialize(playList, file);
+//                    var serializer = new JsonSerializer();
+//                    serializer.Serialize(file, playList);
                 }
                 LogHost.Default.Info("play list saved with {0} files", playList.Files.Count);
             }

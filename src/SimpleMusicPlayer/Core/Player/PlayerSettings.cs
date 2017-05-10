@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using MahApps.Metro.Native;
-using Newtonsoft.Json;
+using Jil;
 using ReactiveUI;
 using SchwabenCode.QuickIO;
 using SimpleMusicPlayer.Core.Interfaces;
@@ -24,7 +24,7 @@ namespace SimpleMusicPlayer.Core.Player
                 }
                 LogHost.Default.Info("loading player settings from {0}", fileName);
                 var jsonString = QuickIOFile.ReadAllText(fileName);
-                var fromThis = JsonConvert.DeserializeObject<PlayerSettings>(jsonString);
+                var fromThis = JSON.Deserialize<PlayerSettings>(jsonString);
 
                 settings.MainWindow = fromThis.MainWindow;
                 settings.Medialib = fromThis.Medialib;
@@ -40,7 +40,7 @@ namespace SimpleMusicPlayer.Core.Player
 
     public class PlayerSettings
     {
-        [JsonIgnore]
+        [JilDirective(true)]
         public const string SettingsFileName = "settings.json";
 
         public PlayerSettings()
@@ -56,7 +56,7 @@ namespace SimpleMusicPlayer.Core.Player
             {
                 var fileName = Path.Combine(TinyIoCContainer.Current.Resolve<AppHelper>().ApplicationPath, SettingsFileName);
                 LogHost.Default.Info("saving player settings to {0}", fileName);
-                var settingsAsJson = JsonConvert.SerializeObject(this, Formatting.Indented);
+                var settingsAsJson = JSON.Serialize(this, new Options(true));
                 QuickIOFile.WriteAllText(fileName, settingsAsJson);
             }
             catch (Exception exception)
@@ -91,7 +91,6 @@ namespace SimpleMusicPlayer.Core.Player
         public WINDOWPLACEMENT? Placement { get; set; }
     }
 
-    [JsonObject]
     public class PlayerEngineSettings : ReactiveObject
     {
         public PlayerEngineSettings()
